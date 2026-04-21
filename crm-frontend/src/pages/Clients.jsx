@@ -17,7 +17,7 @@ const Clients = () => {
 
   const fetchClients = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/clients');
+      const res = await axios.get(import.meta.env.VITE_API_URL + '/clients');
       setClients(res.data);
     } catch (error) {
       console.error('Error fetching clients:', error);
@@ -27,7 +27,7 @@ const Clients = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5001/clients', formData);
+      await axios.post(import.meta.env.VITE_API_URL + '/clients', formData);
       setShowModal(false);
       setFormData({ name: '', email: '', phone: '', type: 'Buyer', preferences: '' });
       fetchClients();

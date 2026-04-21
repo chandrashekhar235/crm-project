@@ -25,8 +25,8 @@ const Properties = () => {
   const fetchData = async () => {
     try {
       const [propRes, agentsRes] = await Promise.all([
-        axios.get('http://localhost:5001/properties'),
-        axios.get('http://localhost:5001/users')
+        axios.get(import.meta.env.VITE_API_URL + '/properties'),
+        axios.get(import.meta.env.VITE_API_URL + '/users')
       ]);
       setProperties(propRes.data);
       setAgents(agentsRes.data);
@@ -43,7 +43,7 @@ const Properties = () => {
         price: Number(formData.price.toString().replace(/[^0-9.-]+/g,"")),
         images: formData.images ? formData.images.split(',').map(url => url.trim()) : []
       };
-      await axios.post('http://localhost:5001/properties', payload);
+      await axios.post(import.meta.env.VITE_API_URL + '/properties', payload);
       setShowModal(false);
       setFormData({ title: '', price: '', type: 'Residential', location: '', status: 'Available', agentId: '', images: '' });
       fetchData();
@@ -59,7 +59,7 @@ const Properties = () => {
     const data = new FormData();
     data.append('file', file);
     try {
-      const res = await axios.post('http://localhost:5001/api/upload', data, {
+      const res = await axios.post(import.meta.env.VITE_API_URL + '/api/upload', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       if (res.data.success) {

@@ -1,3 +1,4 @@
+const API = import.meta.env.VITE_API_URL;
 import React, { useState, useEffect } from 'react';
 import { Plus, X } from 'lucide-react';
 import axios from 'axios';
@@ -28,10 +29,10 @@ const Deals = () => {
   const fetchData = async () => {
     try {
       const [dealsRes, clientsRes, agentsRes] = await Promise.all([
-        axios.get('http://localhost:5001/deals'),
-        axios.get('http://localhost:5001/clients'),
-        axios.get('http://localhost:5001/users')
-      ]);
+  axios.get(`${API}/deals`),
+  axios.get(`${API}/clients`),
+  axios.get(`${API}/users`)
+]);
       setDeals(dealsRes.data);
       setClients(clientsRes.data);
       setAgents(agentsRes.data);
@@ -47,7 +48,7 @@ const Deals = () => {
         ...formData,
         amount: formData.amount ? Number(formData.amount.replace(/[^0-9.-]+/g,"")) : 0
       };
-      await axios.post('http://localhost:5001/deals', payload);
+      await axios.post(`${API}/deals`, payload);
       setShowModal(false);
       setFormData({ title: '', amount: '', stage: 'Inquiry', clientId: '', agentId: '' });
       fetchData();
@@ -63,7 +64,7 @@ const Deals = () => {
     const data = new FormData();
     data.append('file', file);
     try {
-      const res = await axios.post('http://localhost:5001/api/upload', data, {
+      const res = await axios.post(`${API}/api/upload`, data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       if (res.data.success) {

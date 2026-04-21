@@ -22,9 +22,9 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const [dealsRes, propertiesRes, leadsRes] = await Promise.all([
-        axios.get('http://localhost:5001/deals'),
-        axios.get('http://localhost:5001/properties'),
-        axios.get('http://localhost:5001/leads')
+        axios.get(import.meta.env.VITE_API_URL + '/deals'),
+        axios.get(import.meta.env.VITE_API_URL + '/properties'),
+        axios.get(import.meta.env.VITE_API_URL + '/leads')
       ]);
 
       const deals = dealsRes.data;

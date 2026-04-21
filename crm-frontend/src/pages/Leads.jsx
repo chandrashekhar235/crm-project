@@ -19,7 +19,7 @@ const Leads = () => {
 
   const fetchLeads = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/leads');
+      const res = await axios.get(import.meta.env.VITE_API_URL + '/leads');
       setLeads(res.data);
     } catch (error) {
       console.error('Error fetching leads', error);
@@ -33,7 +33,7 @@ const Leads = () => {
         ...formData,
         budget: formData.budget ? Number(formData.budget.toString().replace(/[^0-9.-]+/g,"")) : 0,
       };
-      await axios.post('http://localhost:5001/leads', payload);
+      await axios.post(import.meta.env.VITE_API_URL + '/leads', payload);
       setShowModal(false);
       setFormData({ name: '', email: '', phone: '', budget: '', status: 'New', source: 'Website', preferences: '', followUpReminder: '' });
       fetchLeads();
