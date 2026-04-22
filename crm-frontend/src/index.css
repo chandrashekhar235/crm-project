@@ -204,3 +204,77 @@ h3 { font-size: 1.5rem; }
 .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
 .badge-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
 .badge-info { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+
+/* Mobile Layout Overrides */
+.mobile-header {
+  display: none;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    z-index: 20;
+  }
+  
+  .mobile-toggle-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    transition: left 0.3s ease-in-out;
+    z-index: 30;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidebar.sidebar-open {
+    left: 0;
+  }
+  
+  .sidebar-header {
+    display: none; /* Hide Elevate CRM text in sidebar on mobile as it's in top header */
+  }
+  
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 25;
+  }
+  
+  .main-content {
+    padding: 1rem;
+    width: 100vw;
+  }
+  
+  .main-header {
+    display: none !important; /* Hide desktop top right header on mobile or adjust it */
+  }
+}

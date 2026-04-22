@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Users, Home, Briefcase, Contact, LogOut } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
   
   const navItems = [
@@ -13,9 +13,13 @@ const Sidebar = () => {
     { name: 'Clients', path: '/clients', icon: <Contact size={20} /> },
   ];
 
+  const handleLinkClick = () => {
+    if (setIsOpen) setIsOpen(false);
+  };
+
   return (
-    <aside className="sidebar">
-      <div style={{ marginBottom: '2rem', padding: '0 1rem' }}>
+    <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
+      <div className="sidebar-header" style={{ marginBottom: '2rem', padding: '0 1rem' }}>
         <h2 className="text-gradient" style={{ margin: 0 }}>Elevate CRM</h2>
         <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Real Estate Module</p>
       </div>
@@ -26,6 +30,7 @@ const Sidebar = () => {
             <li key={item.path} style={{ marginBottom: '0.5rem' }}>
               <Link 
                 to={item.path} 
+                onClick={handleLinkClick}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
